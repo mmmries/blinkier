@@ -3,7 +3,7 @@ defmodule Blinkier.MixProject do
 
   @app :blinkier
   @version "0.1.0"
-  @all_targets [:rpi3a]
+  @all_targets [:rpi, :rpi3, :rpi3a]
 
   def project do
     [
@@ -47,11 +47,14 @@ defmodule Blinkier.MixProject do
       {:chameleon, "~> 2.2"},
 
       # Dependencies for all targets except :host
+      {:input_event, "~> 0.4", targets: @all_targets},
       {:nerves_runtime, "~> 0.6", targets: @all_targets},
       {:nerves_pack, "~> 0.2", targets: @all_targets},
 
       # Dependencies for specific targets
-      {:nerves_system_rpi3a, "~> 1.11", runtime: false, targets: :rpi3a},
+      {:nerves_system_rpi, path: "../nerves_system_rpi", runtime: false, targets: :rpi, nerves: [compile: true]},
+      {:nerves_system_rpi3, path: "../nerves_system_rpi3", runtime: false, targets: :rpi3, nerves: [compile: true]},
+      {:nerves_system_rpi3a, path: "../nerves_system_rpi3a", runtime: false, targets: :rpi3a, nerves: [compile: true]},
     ]
   end
 
